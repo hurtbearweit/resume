@@ -22,20 +22,20 @@
 #include"LOG.H"
 int main()
 {
-     int count = 0;//ï¿½ï¿½Â¼ï¿½Ã»ï¿½Ê¹ï¿½Ã´ï¿½ï¿½ï¿½
-	 int ifadd = 0;
-	 int x = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 char usernum = 0;//ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
-	 int page=0;
-	 int info_page = 0;
-	 int template_page = 0;
-	 int gd=VGA,gm=VGAHI;
-	 int psave[9] = {0};//ï¿½Ğ¶ï¿½ï¿½Ç·ñ±£´æ£¬0ÎªÎ´ï¿½ï¿½ï¿½ï¿½
-	 int ifin[8][6] = {{0},{0},{0},{0},{0},{0},{0},{0}};//ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ë£¬0ÎªÎ´ï¿½ï¿½ï¿½ï¿½
-	 int pos[8] = {0};//ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½É¾ï¿½ï¿½ï¿½ï¿½0ÎªÎ´É¾ï¿½ï¿½
-	 int pchoose[8] = {0};//ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½Ñ¡ï¿½ï¿½0ÎªÎ´ï¿½ï¿½Ñ¡
-	 int turn[9] = {0};//ï¿½ï¿½Â¼ï¿½ï¿½Ô¤ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ë³ï¿½ï¿½0ÎªÎ´Ñ¡ï¿½ï¿½
-	 
+     int count = 0;//¼ÇÂ¼Ê¹ÓÃ¼òÀúÉú³ÉÏµÍ³µÄ´ÎÊı
+	 int ifadd = 0;//±ê¼ÇÊÇ·ñÊÇĞÂÔöµÄÄ£Ê½£¬¼´²»ÊÇ0~3£¬¶øÊÇÆäËû
+	 int x = 0;//¼ÇÂ¼µ±Ç°¹öÂÖµÄÎ»ÖÃ
+	 char usernum = 0;//¼ÇÂ¼µ±Ç°ÓÃ»§µÄÕËºÅ
+	 int page=0;//¼ÇÂ¼µ±Ç°Ò³Ãæ
+	 int info_page = 0;//¼ÇÂ¼¼òÀúµÄµÚ¼¸¸ö°å¿é
+	 int template_page = 0;//µ±Ç°Ê¹ÓÃµÄÄ£°å±àºÅ£¬1±íÊ¾¾­µäÄ£°å£¬2±íÊ¾Áã¾­ÑéÇóÖ°£¬3±íÊ¾±ÏÒµÉúÇóÖ°£¬4±íÊ¾ÆÀ½±ÆÀÓÅ£¬5±íÊ¾×Ô¶¨Òå
+	 int gd=VGA,gm=VGAHI;//ÉèÖÃÏÔÊ¾Ä£Ê½
+	 int psave[9] = {0};//ÊÇ·ñ±£´æ£¬0±íÊ¾Î´±£´æ£¬1±íÊ¾ÒÑ¾­±£´æ
+	 int ifin[8][6] = {{0},{0},{0},{0},{0},{0},{0},{0}};//Ã¿¸öÄ£¿éµÄÃ¿¸ö×ÓĞÅÏ¢ÊÇ·ñ±£´æ
+	 int pos[8] = {0};//Ã¿¸ö°å¿éÊÇ·ñÏÔÊ¾£¬Îª0Ê±±íÊ¾ÏÔÊ¾£¬
+	 int pchoose[8] = {0};//ÊÇ·ñÑ¡ÖĞ°å¿é£¬Îª0±íÊ¾Î´±»Ñ¡ÖĞ£¬Îª1±íÊ¾±»Ñ¡ÖĞ
+	 int turn[9] = {0};//¼ÇÂ¼°å¿éµÄË³Ğò
+	 //×¢Òâ£ºpos[]ºÍturn[]ÀïÃæµÄÊı¾İ¶¨ÒåµÄ²»Ò»Ñù£¬pos[]ÀïÃæÃ»ÓĞ»ù±¾ĞÅÏ¢Ò»À¸£¬¶øturn[]ÀïÃæÓĞ»ù±¾ĞÅÏ¢Ò»À¸
 	 
 	 initgraph(&gd,&gm,"C:\\BORLANDC\\BGI");
 	 page_welcome();
@@ -45,39 +45,39 @@ int main()
          switch(page)
 		 {
 			case -1: return 0;
-			case 0: page = page_log(&usernum);//ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+			case 0: page = page_log(&usernum);//µÇÂ½½çÃæ
 			        break;
-			case 1: page = page_register();//×¢ï¿½ï¿½ï¿½ï¿½ï¿½
+			case 1: page = page_register();//×¢²á½çÃæ
 			        break;
-			case 2: page = page_home(usernum,&count);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			case 2: page = page_home(usernum,&count);//Ê×Ò³
 			        break;
-			case 3: page = page_choose();//Ñ¡ï¿½ï¿½Ä£ï¿½ï¿½	
+			case 3: page = page_choose();//Ñ¡Ôñ½çÃæ
 			        break;
-			case 4: page = page_make();//ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+			case 4: page = page_make();//ÖÆ×÷¼òÀú½çÃæ
 			        break;
-			case 5: page = page_person();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½		 
+			case 5: page = page_person();//¸öÈËĞÅÏ¢½çÃæ
 			        break;	
-			case 6: page = page_classic(&x,&info_page,psave, ifin,pos,&template_page,&ifadd,&count,turn);//ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+			case 6: page = page_classic(&x,&info_page,psave, ifin,pos,&template_page,&ifadd,&count,turn);//¾­µäÄ£°å
 					break;	
-			case 7: page = page_virgin(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//ï¿½ã¾­ï¿½ï¿½Ä£ï¿½ï¿½
+			case 7: page = page_virgin(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//Áã¾­ÑéÇóÖ°
 			        break;
-			case 8: page = page_graduate(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//Ñ§ï¿½ï¿½Ä£ï¿½ï¿½
+			case 8: page = page_graduate(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//±ÏÒµÉúÇóÖ°
 			        break;	
-			case 9: page = page_award(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+			case 9: page = page_award(&x,&info_page,psave,ifin,pos,&template_page,&ifadd,&count,turn);//ÆÀ½±ÆÀÓÅ
 			        break;		
-			//case 10: page = page_person_changecode(usernum);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//case 10: page = page_person_changecode(usernum);//ĞŞ¸ÄÃÜÂë½çÃæ
 			//        break;
-			case 11: page = page_info(info_page,psave,ifin,template_page);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+			case 11: page = page_info(info_page,psave,ifin,template_page);//Â¼Èë¸öÈËĞÅÏ¢
 			         break;		
-			case 12: page = page_add(pos,template_page,&ifadd);
+			case 12: page = page_add(pos,template_page,&ifadd);//Ìí¼Ó¼òÀúµÄ°æ¿é
 			         break;
-			case 13 : page = make_list(pchoose,turn);
+			case 13 : page = make_list(pchoose,turn);//´´½¨Ä£°åÑ¡ÔñÄÚÈİ½çÃæ
 			          break;	
-			case 14 : page = turn_list(pchoose,turn);
+			case 14 : page = turn_list(pchoose,turn);//´´½¨Ä£°åË³ĞòÔ¤ÀÀ½çÃæ
 			          break;	
-			case 15 : page = my_template(&x,pchoose,turn,&info_page,&template_page,ifin,psave,&count);
+			case 15 : page = my_template(&x,pchoose,turn,&info_page,&template_page,ifin,psave,&count);//ÎÒµÄ×Ô½¨Ä£°å½çÃæ
 			          break;	
-		     case 16 : page = page_useinfo(&usernum,count);	
+		    case 16 : page = page_useinfo(&usernum,count);	//²é¿´¸öÈËĞÅÏ¢Ò³Ãæ
 			           break;		  	  	  	 					
 		 }
 	 }

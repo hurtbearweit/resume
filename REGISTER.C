@@ -25,20 +25,20 @@ void page_register()
 	int ran = 0;
 	srand(time(NULL)); 
 	cleardevice();
-	setfillstyle(SOLID_FILL,LIGHTCYAN);
+	setfillstyle(SOLID_FILL,WHITE);
     bar(0,0,648,480);
     puthz(230,60,"注册",48,64,LIGHTRED);
-	setcolor(WHITE);
+	setcolor(BLACK);
 	line(160,160,420,160);//用户线
 	line(160,202,420,202);//密码线
 	line(160,244,420,244);//确认线
 	line(160,286,420,286);//手机号线
 	line(160,328,420,328);//验证码线
-	puthz(40,130,"用户名", 24, 45,WHITE);
-	puthz(40,172,"密码", 24, 85, WHITE);
-	puthz(40,213,"确认密码", 24, 30,WHITE);
-	puthz(40,259,"手机号码", 24, 30, WHITE);
-	puthz(40,301,"验证码", 24, 45,WHITE);
+	puthz(40,130,"用户名", 24, 45,BLACK);
+	puthz(40,172,"密码", 24, 85, BLACK);
+	puthz(40,213,"确认密码", 24, 30,BLACK);
+	puthz(40,259,"手机号码", 24, 30, BLACK);
+	puthz(40,301,"验证码", 24, 45,BLACK);
     setfillstyle(1,WHITE);
 	bar(440,260,545,286);//获取验证码框
 	log_restore(440,260,545,286);
@@ -76,9 +76,9 @@ void page_register()
 			if (mouse_press(160,130,420,160) == 1)
 			{
 				clrmous(MouseX,MouseY);
-				setfillstyle(SOLID_FILL,11);
+				setfillstyle(SOLID_FILL,15);
                 bar(160,130,420,159);
-				log_inputaccount(name,160,130,12,11,1);
+				log_inputaccount(name,160,130,12,15,1);
 			}			 
 		}
 	    if (MouseX>160&&MouseX<420&&MouseY>165&&MouseY<202)//密码线
@@ -91,9 +91,9 @@ void page_register()
 			if (mouse_press(160,165,420,202) == 1)
 			{
 				clrmous(MouseX,MouseY);
-				setfillstyle(SOLID_FILL,11);
+				setfillstyle(SOLID_FILL,15);
                 bar(160,165,420,201);
-				log_inputcode(code,160,165,12,11);
+				log_inputcode(code,160,165,12,15);
 			}			 
 		}
 		if (MouseX>160&&MouseX<420&&MouseY>207&&MouseY<244)//确认线
@@ -106,9 +106,9 @@ void page_register()
 			if (mouse_press(160,207,420,244) == 1)
 			{
 				clrmous(MouseX,MouseY);
-				setfillstyle(SOLID_FILL,11);
+				setfillstyle(SOLID_FILL,15);
                 bar(160,207,420,243);
-				log_inputcode(confirm,160,207,12,11);
+				log_inputcode(confirm,160,207,12,15);
 			}			 
 		}
 		if (MouseX>160&&MouseX<420&&MouseY>249&&MouseY<286)//手机号线
@@ -121,9 +121,9 @@ void page_register()
 			if (mouse_press(160,249,420,286) == 1)
 			{
 				clrmous(MouseX,MouseY);
-				setfillstyle(SOLID_FILL,11);
+				setfillstyle(SOLID_FILL,15);
 				bar(160,249,420,285);
-				log_inputaccount(phone,160,249,11,11,1);
+				log_inputaccount(phone,160,249,11,15,1);
 			}		
 		}	
         if (MouseX>160&&MouseX<420&&MouseY>291&&MouseY<328)//验证码线
@@ -136,9 +136,9 @@ void page_register()
 			if (mouse_press(160,291,420,328) == 1)
 			{
 				clrmous(MouseX,MouseY);
-				setfillstyle(SOLID_FILL,11);
+				setfillstyle(SOLID_FILL,15);
 				bar(160,291,420,327);
-				log_inputaccount(pin,160,291,4,11,1);
+				log_inputaccount(pin,160,291,4,15,1);
 				
 			}		
 		}
@@ -166,7 +166,7 @@ void page_register()
                 {
 					ran = 1000 + rand()%8999;//确保是四位数
 				    itoa(ran,random,10);
-					setfillstyle(SOLID_FILL,11);
+					setfillstyle(SOLID_FILL,15);
 	                bar(160,291,420,327);
 	                setcolor(BLACK);
 	                settextstyle( SMALL_FONT,HORIZ_DIR,8);
@@ -180,7 +180,7 @@ void page_register()
 					clrmous(MouseX,MouseY);
 	                puthz(390,300,"请先输入合法手机号码", 16, 18, DARKGRAY);
 	                delay(1500);
-	                setfillstyle(SOLID_FILL,11);
+	                setfillstyle(SOLID_FILL,15);
 	                bar(380,291,580,327);
 					newmouse(&MouseX,&MouseY,&press);
 				}

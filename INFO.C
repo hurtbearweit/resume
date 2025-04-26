@@ -40,7 +40,7 @@ int page_info(int info_page,int psave[],int ifin[][6],int template_page)
     memset(com,'\0',sizeof(COMMENT));
     memset(und,'\0',sizeof(UNDERGO));
     memset(hon,'\0',sizeof(INTERN));
-    
+    //将之前定义的结构体指针赋值为0
     cleardevice();
     clrmous(MouseX,MouseY);
     setfillstyle(1, WHITE);
@@ -116,20 +116,20 @@ int name_info(BASIC *b,int psave[],int ifin[][6],int template_page)
         fseek(fp, 0, SEEK_END);
         len = ftell(fp) / sizeof(BASIC);
         fseek(fp, (len - 1) * sizeof(BASIC), SEEK_SET);
-        fread(&temp, sizeof(BASIC), 1, fp);
+        fread(&temp, sizeof(BASIC), 1, fp);//后面指针指向的东西，传给前面的指针
         if (fclose(fp) != 0)
         {
-            perror("Can't close basic.");
+            perror("Can't close basic.dat");
             delay(3000);
             exit(1);
         }
         setcolor(0);
 	    settextstyle(TRIPLEX_FONT, HORIZ_DIR, 2);
 	    settextjustify(LEFT_TEXT, TOP_TEXT);
-        if (ifin[0][0] > 0)
+        if (ifin[0][0] > 0)//基本信息模块的第一个信息框里面输入了信息
         {
             puthz(192, 85, temp.name, 16, 18, BLACK);
-            strcpy(b->name,temp.name);
+            strcpy(b->name,temp.name);//后面的存到前面
             ifin[0][0] = 2;
         }
         if (ifin[0][1] > 0)
@@ -187,12 +187,12 @@ int name_info(BASIC *b,int psave[],int ifin[][6],int template_page)
                 setfillstyle(1, WHITE);
                 bar(190, 75, 520, 115);
                 memset(b->name,'\0',13);
-                j = hz_input(190, 85, 495, 115, b->name, 0, WHITE, BLACK, 16);
+                j = hz_input(190, 85, 495, 115, b->name, 0, WHITE, BLACK, 16);//j用来返回输入了几个字
                 if (j > 0)
                 {
                     if (j <= 8)
                     {
-                        ifin[0][0] = 1;
+                        ifin[0][0] = 1;//表示已经输入，但是还没有保存
                     }
                     else
                     {
@@ -205,7 +205,7 @@ int name_info(BASIC *b,int psave[],int ifin[][6],int template_page)
                         bar(540, 85, 640, 130);
                         bar(190, 75, 520, 115);
                     }
-                    if (cheek_legal(b->name,j))
+                    if (cheek_legal(b->name,j))//输入为英文
                     {
                         j = 0;
                         ifin[0][0] = 0;
@@ -236,7 +236,7 @@ int name_info(BASIC *b,int psave[],int ifin[][6],int template_page)
                 setfillstyle(1, WHITE);
                 bar(190, 135, 520, 175);
                 memset(b->phone,'\0',12);
-                log_inputaccount(b->phone,195,140,11,WHITE,2);
+                log_inputaccount(b->phone,195,140,11,WHITE,2);//将信息输入到b->phone中
                 if (*(b->phone) != '\0')
                 {
                     if (strlen(b->phone) <= 11)
@@ -402,8 +402,7 @@ int name_info(BASIC *b,int psave[],int ifin[][6],int template_page)
             }
             if (mouse_press(430,370,530,420) == 1)
             {
-                 nameinfo_save(b,psave);
-                 
+                nameinfo_save(b, psave);
             }
         }
     }
@@ -449,18 +448,9 @@ RETURN:
 ***********************************************/
 void put_nameinfo(int x,int ifin[][6])
 {
-    //BASIC *b = NULL;
     int len = 0;
     BASIC b = {{'\0'},{'\0'},{'\0'},{'\0'},{'\0'}};  
     FILE *fp;
-	//memset(b,'\0',sizeof(BASIC));
-    
-//    if ((b = (BASIC*)malloc(sizeof(BASIC))) == NULL)
-// 		{
-// 			perror("memoryallocation runs wrong");
-// 			delay(3000);
-// 			exit(1);
-// 		}
     if ((fp = fopen("C:\\CODE\\database\\basic.dat", "rb+")) == NULL)
     {
         perror("Can't open basic.dat");
@@ -473,7 +463,7 @@ void put_nameinfo(int x,int ifin[][6])
 	fread(&b, sizeof(BASIC), 1, fp);
     if (fclose(fp) != 0)
 	{
-		perror("Can't close basic.");
+		perror("Can't close basic.dat");
 		delay(3000);
 		exit(1);
 	}
@@ -851,8 +841,7 @@ void intention_info_save(INTENTION *inten,int psave[])
         delay(1000);
         setfillstyle(1, WHITE);
         bar(250,440,600,480);
-        psave[1] = 1;
-        
+        psave[1] = 1;  
     }
 }
 /*********************************************
@@ -1828,7 +1817,7 @@ int skill_info(SKILL *ski,int psave[],int ifin[][6],int template_page)
     int len = 0;
     SKILL temp2;
     SKILL temp;
-	int pos = 0;
+	int pos = 0;//用于记录偏移量，即自己手动加了技能后画图时y方向的偏移量
     int j[4] = {0};
     FILE *fp;
     puthz(200, 15, "技能证书", 48, 64, BLACK);
@@ -2286,7 +2275,7 @@ int comment_info(COMMENT *com,int psave[],int ifin[][6],int template_page)
     COMMENT temp2;
     COMMENT temp;
 	int pos = 0;
-    int j[4] = {0};
+    int j[4] = {0};//用于记录每个输入的字长
     FILE *fp;
     puthz(200, 15, "自我评价", 48, 64, BLACK);
 	setlinestyle(0, 0, 1);

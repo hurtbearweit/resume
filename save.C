@@ -7,10 +7,13 @@
 #include<stdlib.h>
 #include<conio.h>
 #include"INFO.H"
+//用法：将存入.dat函数中的信息存入.txt文件中
+//参数：psave[]：保存的选项，ifin[][]：输入的选项，template_page：模板页码，turn[]：自定义模块排列顺序
 int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 {
 	FILE *fp;
 	FILE* fp1,*fp2,*fp3,*fp4,*fp5,*fp6,*fp7,*fp8;
+	//文件指针
 	BASIC* b = (BASIC*)malloc(sizeof(BASIC));
 	INTENTION* intent = (INTENTION*)malloc(sizeof(INTENTION));
 	EDUCATION* edu = (EDUCATION*)malloc(sizeof(EDUCATION));
@@ -31,6 +34,7 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 	fp8 = fopen("C:\\CODE\\database\\undergo.dat", "r");
 	fseek(fp1, 0, SEEK_END);
 	len = ftell(fp1) / sizeof(BASIC);
+	//计算有几个用户的数据
 	fseek(fp1, (len - 1) * sizeof(BASIC), SEEK_SET);
 	fread(b, sizeof(BASIC), 1, fp1);
 	fclose(fp1);
@@ -81,17 +85,17 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 	{
 		exit(1);
 	}
-	if (*template_page != 5)
+	if (*template_page != 5)//不是自己创建模板
 	{
-		if (psave[0] == 1)
+		if (psave[0] == 1)//未保存
 		{
 			if (ifin[0][0] > 0)
 			{
-				fprintf(fp, "姓名:%s\n", b->name);
+				fprintf(fp, "姓名:%s\n", b->name);//将信息写入文件
 			}
 			if (ifin[0][1] > 0)
 			{
-				fprintf(fp, "手机:%s\t", b->phone);
+				fprintf(fp, "手机:%s\t", b->phone);//后面赋值给前面
 			}
 			if (ifin[0][2] > 0)
 			{
@@ -151,6 +155,45 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 			}
 			fputs("\n---------------------------------------------------------------------\t\n", fp);
 		}
+
+		if (psave[6] == 1)
+		{
+			if (ifin[6][0] > 0)
+			{
+				fprintf(fp, "在校经历\n%s\n", und->club1);
+			}
+			if (ifin[6][1] > 0)
+			{
+				fprintf(fp, "%s\n", und->club2);
+			}
+			if (ifin[6][2] > 0)
+			{
+				fprintf(fp, "%s\n", und->detail1);
+			}
+			if (ifin[6][3] > 0)
+			{
+				fprintf(fp, "%s\n", und->detail2);
+			}
+			fputs("\n---------------------------------------------------------------------\t\n", fp);
+		}
+
+		if (psave[7] == 1)
+		{
+			if (ifin[7][0] > 0)
+			{
+				fprintf(fp, "实习经历\n%s\n", hon->company);
+			}
+			if (ifin[7][1] > 0)
+			{
+				fprintf(fp, "%s\n", hon->job);
+			}
+			if (ifin[7][2] > 0)
+			{
+				fprintf(fp, "%s\n", hon->experience);
+			}
+			fputs("\n---------------------------------------------------------------------\t\n", fp);
+		}
+
 		if (psave[3] == 1)
 		{
 			fputs("工作经历\n", fp);
@@ -174,46 +217,9 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 			{
 				fprintf(fp, "工作事迹%s\n", exp->deed);
 			}
-			fputs("\n---------------------------------------------------------------------\t\n", fp);
+			fputs("\n---------------------------------------------------------------------\t\n", fp);//用于将一个字符串保存进文档
 		}
 
-
-		if (psave[6] == 1)
-		{
-			if (ifin[6][0] > 0)
-			{
-				fprintf(fp, "在校经历\n%s\n", und->club1);
-			}
-			if (ifin[6][1] > 0)
-			{
-				fprintf(fp, "%s\n", und->club2);
-			}
-			if (ifin[6][2] > 0)
-			{
-				fprintf(fp, "%s\n", und->detail1);
-			}
-			if (ifin[6][3] > 0)
-			{
-				fprintf(fp, "%s\n", und->detail2);
-			}
-			fputs("\n---------------------------------------------------------------------\t\n", fp);
-		}
-		if (psave[7] == 1)
-		{
-			if (ifin[7][0] > 0)
-			{
-				fprintf(fp, "实习经历\n%s\n", hon->company);
-			}
-			if (ifin[7][1] > 0)
-			{
-				fprintf(fp, "%s\n", hon->job);
-			}
-			if (ifin[7][2] > 0)
-			{
-				fprintf(fp, "%s\n", hon->experience);
-			}
-			fputs("\n---------------------------------------------------------------------\t\n", fp);
-		}
 		if (psave[4] == 1)
 		{
 			if (ifin[4][0] > 0)
@@ -234,6 +240,7 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 			}
 			fputs("\n---------------------------------------------------------------------\t\n", fp);
 		}
+
 		if (psave[5] == 1)
 		{
 			if (ifin[5][0] > 0)
@@ -254,9 +261,8 @@ int saveout(int psave[], int ifin[][6], int *template_page,int turn[])
 			}
 			fputs("\n---------------------------------------------------------------------\t\n", fp);
 		}
-		
 	}
-	if (*template_page == 5)
+	if (*template_page == 5)//如果是自己创建模板，顺序会有变化，使用需要先遍历出模块之间的顺序
 	{
 		for (i = 0; i < 8; i++)
 		{

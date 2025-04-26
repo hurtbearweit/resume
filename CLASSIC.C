@@ -19,15 +19,12 @@ RETURN:3,
 ***********************************************/
 int page_classic(int *x,int *pinfo_page,int psave[],int ifin[][6],int pos[],int *template_page,int *ifadd,int *count,int turn[])
 {
-    //char a[10] = {'\0'};
-	//1;//1
+
 	unsigned s;
 	void *p;
-    //int x = 0;
-	// int turn[8] = {1,2,3,4,5,6,7,8};
 	int i[5] = {0};
 	int partpos[8] = {0};//记录每个板块的开头
-	int length[8] = {90,65,156,126,108,200,150,200};
+	int length[8] = {90,65,151,126,108,200,150,200};//记录每个模块的长度
 	int addlength[2] = {150,200};
 	int add[2] = {0,0};
 	
@@ -36,7 +33,7 @@ int page_classic(int *x,int *pinfo_page,int psave[],int ifin[][6],int pos[],int 
 	{
 		pos[5] = 1;
 		pos[6] = 1;
-	}
+	}     //如果不添加，那么就令他们都是1，pos = 1 代表不显示
 	if (pos[5] == 0)
 	{
 		add[0] = addlength[0];
@@ -78,6 +75,7 @@ int page_classic(int *x,int *pinfo_page,int psave[],int ifin[][6],int pos[],int 
 		}
 		newmouse(&MouseX, &MouseY, &press);
 		delay(40);
+		//点击了添加窗口，就是重新添加模块
 		if (MouseX>580&&MouseX<600&&MouseY>10+*x&&MouseY<30+*x)
 		{
 			if (mouse_press(580,10+*x,600,30+*x) == 2)
@@ -415,6 +413,7 @@ int page_classic(int *x,int *pinfo_page,int psave[],int ifin[][6],int pos[],int 
 					delay(1000);
 					putimage(200,50,p,0);
 					free(p);
+					//操作：先存下来背景数据，接下来弹出提醒，最后又恢复背景数据
 				}
 			}
 		}
@@ -455,8 +454,8 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
 		add[1] = addlength[1];
 	}
 	
-	i[0] = pos[0]*i1;
-	i[1] = pos[0]*i1+pos[1]*i2;
+	i[0] = pos[0]*i1;//求职意向模块的长度
+	i[1] = pos[0]*i1+pos[1]*i2;//求职意向和教育意义的长度
 	i[2] = pos[0]*i1+pos[1]*i2+pos[2]*i3;
 	i[3] = pos[0]*i1+pos[1]*i2+pos[2]*i3+pos[3]*i4;
 
@@ -465,41 +464,45 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
     setfillstyle(1, WHITE);
     bar(0, 0, 640, 480);
 
+	//滚轮的原理就是，设定了一个指定的滚轮偏移量，然后根据鼠标的位置，初始时是0，之后点击向下的箭头，就会使x变成-30，
+	// 则最上面的30像素就被掩盖了，下面的第31像素变成了第1像素，这样就实现了滚轮效果，因为本身所有的线和文字都是
+	///基于x画出来的，收到x的影响，所以滚轮的效果就出来了
+
+
     //个人信息
-    puthz(0,0+x+5,"姓名",24,32,BLACK);
-    puthz(0,30+x+5,"手机",16,18,BLACK);
-    puthz(200,30+x+5,"邮箱",16,18,BLACK);
-    puthz(0,50+x+5,"微信",16,18,BLACK);
-    puthz(200,50+x+5,"出生日期",16,18,BLACK);
-	rectangle(580,10+x,600,30+x);
-	line(585,20+x,595,20+x);
-	line(590,15+x,590,25+x);
-    //求职信息
+	setlinestyle(0, 0, 3);
+	setcolor(BLACK);
+	line(0, 0 + x + 65, 610, 0 + x + 65);   //求职意见上面的一条直线
+    puthz(0,0+x+5 +65,"姓名",24,32,BLACK);
+    puthz(0,30+x+5 + 65,"手机",16,18,BLACK);
+    puthz(200,30+x+5 + 65,"邮箱",16,18,BLACK);
+    puthz(0,50+x+5 + 65,"微信",16,18,BLACK);
+    puthz(200,50+x+5 + 65,"出生日期",16,18,BLACK);
+	rectangle(580,10+x + 65,600,30+x + 65);
+	line(585,20+x + 65,595,20+x + 65);
+	line(590,15+x + 65,590,25+x + 65);
+    //求职信息    个人信息一栏不管哪个模板都不会删
     if (pos[0] == 0)
 	{
 		setlinestyle(0, 0, 3);
 		setcolor(BLACK);
-		line(0, 70 + x + 25, 610, 70 + x + 25);
-		puthz(0, 75 + x + 25, "求职意向", 24, 32, BLACK);
-		puthz(0, 105 + x + 25, "求职岗位", 16, 18, BLACK);
-		puthz(100, 105 + x + 25, "求职类型", 16, 18, BLACK);
-		puthz(200, 105 + x + 25, "期望薪资", 16, 18, BLACK);
-		puthz(300, 105 + x + 25, "期望城市", 16, 18, BLACK);
-		setlinestyle(0, 0, 1);
-		rectangle(580, 100 + x, 600, 120 + x);
-		line(585, 105 + x, 595, 115 + x);
-		line(595, 105 + x, 585, 115 + x);
-		
+		line(0, 70 + x + 25 - 90, 610, 70 + x + 25 - 90);   //求职意见上面的一条直线
+		puthz(0, 75 + x + 25 -90 , "求职意向", 24, 32, BLACK);
+		puthz(0, 105 + x + 25 -90 , "求职岗位", 16, 18, BLACK);
+		puthz(100, 105 + x + 25 -90 ,"求职类型", 16, 18, BLACK);
+		puthz(200, 105 + x + 25 - 90, "期望薪资", 16, 18, BLACK);
+		puthz(300, 105 + x + 25 -90, "期望城市", 16, 18, BLACK);
+		setlinestyle(0, 0, 1);  
+		rectangle(580, 100 + x - 90, 600, 120 + x - 90);
+		line(585, 105 + x -90, 595, 115 + x -90 );
+		line(595, 105 + x -90, 585, 115 + x - 90);
+		//画线规则就是这一个模块的上面的那一条线，而不画下面的那一条线
 	}
-	
-	// if (pos[0] != 0)
-	// {
-	// 	setfillstyle(1,WHITE);
-	// 	bar(0,94+x,610,160+x);
-		
-	// }
+
     
     //教育信息
+	///这里使用了一个i[0],就是因为i[0]实际上就是求职意向这一个模块的长度，如果删掉了这一个模块后教育经历就变成了第二个板块
+	//后面的版块都需要向上移动i[0]的长度，所以这里就需要用到i[0]
     if (pos[1] == 0)
 	{
 		setlinestyle(0, 0, 3);
@@ -520,14 +523,9 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
 		line(595, 190 + x - i[0], 585, 200 + x - i[0]);
 		
 	}
-	
-	// if (pos[1] != 0)
-	// {
-	// 	setfillstyle(1,WHITE);
-	// 	bar(0,160+x-i[0],610,311+x-i[0]);
-	// }
 
     //工作信息
+	//在校经历和实习经历都是插在工作经历前面的，所以还会加上add[0]和add[1]
     if (pos[2] == 0)
 	{
 		setlinestyle(0, 0, 3);
@@ -536,22 +534,16 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
 		puthz(0, 301 + x + 45 -i[1]+add[0]+add[1], "公司名称", 16, 18, BLACK);
 		puthz(0, 326 + x + 45 -i[1]+add[0]+add[1], "职位名称", 16, 18, BLACK);
 		puthz(400, 326 + x + 45 -i[1]+add[0]+add[1], "开始时间", 16, 18, BLACK);
-		puthz(500, 326 + x + 45 -i[1]+add[0]+add[1], "结束时间", 16, 18, BLACK);
 		setlinestyle(0, 0, 1);
-		line(480, 335 + x + 45 -i[1]+add[0]+add[1], 490, 335 + x + 45 -i[1]+add[0]+add[1]);
+		line(480, 335 + x + 45 - i[1] + add[0] + add[1], 490, 335 + x + 45 - i[1] + add[0] + add[1]);
+		puthz(500, 326 + x + 45 -i[1]+add[0]+add[1], "结束时间", 16, 18, BLACK);
 		setlinestyle(0, 0, 1);
 		rectangle(580, 316 + x -i[1]+add[0]+add[1], 600, 336 + x -i[1]+add[0]+add[1]);
 		line(585, 321 + x -i[1]+add[0]+add[1], 595, 331 + x -i[1]+add[0]+add[1]);
 		line(595, 321 + x -i[1]+add[0]+add[1], 585, 331 + x -i[1]+add[0]+add[1]);
 		
 	}
-	
-	// if (pos[2] != 0)
-	// {
-	// 	setfillstyle(1,WHITE);
-	// 	bar(0,311+x-i[1],610,437+x-i[1]);
-	// }
-	
+
     //技能信息
     if (pos[3] == 0)
 	{
@@ -565,12 +557,19 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
 		
 	}
 	
-	// if (pos[3] != 0)
-	// {
-	// 	setfillstyle(1,WHITE);
-	// 	bar(0,437+x-i[2],610,545+x-i[2]);
-	// }
-	
+	//自我评价
+	if (pos[4] == 0)
+	{
+		setlinestyle(0, 0, 3);
+		line(0, 480 + x + 65 - i[3] + add[0] + add[1], 610, 480 + x + 65 - i[3] + add[0] + add[1]);
+		puthz(0, 485 + x + 65 - i[3] + add[0] + add[1], "自我评价", 24, 32, BLACK);
+		setlinestyle(0, 0, 1);
+		rectangle(580, 550 + x - i[3] + add[0] + add[1], 600, 570 + x - i[3] + add[0] + add[1]);
+		line(585, 555 + x - i[3] + add[0] + add[1], 595, 565 + x - i[3] + add[0] + add[1]);
+		line(595, 555 + x - i[3] + add[0] + add[1], 585, 565 + x - i[3] + add[0] + add[1]);
+
+	}
+
     //控制栏
 	setcolor(BLACK);
     setlinestyle(0,0,1);
@@ -593,21 +592,10 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
     floodfill(626,50,BLACK);
 	floodfill(626,409,BLACK);
 
-    if (pos[4] == 0)
-	{
-		setlinestyle(0, 0, 3);
-		line(0, 480 + x + 65-i[3]+add[0]+add[1], 610, 480 + x + 65-i[3]+add[0]+add[1]);
-		puthz(0, 485 + x + 65-i[3]+add[0]+add[1], "自我评价", 24, 32, BLACK);
-		setlinestyle(0, 0, 1);
-		rectangle(580, 550 + x -i[3]+add[0]+add[1], 600, 570 + x -i[3]+add[0]+add[1]);
-		line(585, 555 + x -i[3]+add[0]+add[1], 595, 565 + x -i[3]+add[0]+add[1]);
-		line(595, 555 + x -i[3]+add[0]+add[1], 585, 565 + x -i[3]+add[0]+add[1]);
-		
-	}
 	if (pos[5] == 0)
 	{
 		setlinestyle(0, 0, 3);
-		line(0, 311-i[1]+x, 610, 311-i[1]+x);
+		line(0, 311-i[1]+x, 610, 311-i[1]+x);//这一行和工作经历是一样的
 		puthz(0,316-i[1]+x,"在校经历",24,32,BLACK);
 		setlinestyle(0,0,1);
 		rectangle(580,331-i[1]+x,600,351-i[1]+x);
@@ -624,20 +612,13 @@ void page_classic_draw(int x,int psave[],int ifin[][6],int pos[])
 		line(585,321+x-i[1]+add[0],595,331+x-i[1]+add[0]);
 		line(595,321+x-i[1]+add[0],585,331+x-i[1]+add[0]);
 	}
-	
-	
-	// if (pos[4] != 0)
-	// {
-	// 	setfillstyle(1,WHITE);
-	// 	bar(0,544+x-i[3]+add[0]+add[1],610,800+x-i[3]+add[0]+add[1]);
-	// }
-	
+		
 
     if (psave[0] == 1)
     {
 		put_nameinfo(x,ifin);
 	}
-	if (psave[1] == 1&&pos[0] == 0)
+	if (psave[1] == 1&&pos[0] == 0)  //求职意向模块选中了并且已经保存，则需要将保存的东西输出出来
 	{
 		put_intention_info(125+x,ifin);
 	}

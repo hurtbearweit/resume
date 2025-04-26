@@ -5,6 +5,7 @@
 #include "mouse.h"
 #include "CHOOSE.H"
 #include "LOG.H"
+#include"HOME.H"
 /*********************************************
 FUNCTION:page_choose
 DESCRIPTION：draw the choose template page
@@ -16,33 +17,36 @@ int page_choose()
 
     cleardevice();
     clrmous(MouseX, MouseY);
-    setfillstyle(1, LIGHTCYAN);
+    setfillstyle(1, WHITE);
     bar(0, 0, 648, 480);
     setfillstyle(1, YELLOW);
     bar(600, 0, 648, 35); // 退出框
     log_restore(600, 0, 648, 35);
     puthz(605, 10, "退出", 16, 15, RED);
-    puthz(180, 20, "请选择使用场景", 32, 32, BLACK);
-    setfillstyle(1, WHITE);
-    bar(20, 60, 420, 125); // 1
-    puthz(25, 70, "经典求职模板", 24, 28, BLACK);
-    puthz(25, 100, "全行业通用模板", 16, 18, BLACK);
-    bar(20, 155, 420, 220); // 2
-    puthz(25, 165, "零经验求职", 24, 28, BLACK);
-    puthz(25, 195, "适合第一次找工作使用", 16, 18, BLACK);
-    bar(20, 250, 420, 315); // 3
-    puthz(25, 260, "学生求职", 24, 28, BLACK);
-    puthz(25, 290, "适合有一定实习经历的学生", 16, 18, BLACK);
-    bar(20, 345, 420, 405); // 4
-    puthz(25, 355, "评奖评优", 24, 28, BLACK);
-    puthz(25, 380, "适合高校内评奖评优", 16, 18, BLACK);
+    puthz(215, 20, "请选择使用场景", 32, 32, BLACK);
+
+    home_draw(200, 80, 440, 145, BLACK);// 1
+    puthz(240, 90, "经典求职模板", 24, 28, BLACK);
+    puthz(260, 120, "全行业通用模板", 16, 18, BLACK);
+
+    home_draw(200, 160, 440, 225, BLACK);// 2
+    puthz(250, 170, "零经验求职", 24, 28, BLACK);
+    puthz(240, 200, "适合第一次找工作使用", 16, 18, BLACK);
+
+    home_draw(200, 240, 440, 305, BLACK);// 3
+    puthz(260, 250, "学生求职", 24, 28, BLACK);
+    puthz(220, 280, "适合有一定实习经历的学生", 16, 18, BLACK);
+
+    home_draw(200, 320, 440, 385, BLACK);// 4
+    puthz(260, 330, "评奖评优", 24, 28, BLACK);
+    puthz(240, 360, "适合高校内评奖评优", 16, 18, BLACK);
     while (1)
     {
         if (MouseS != 0 
-        && mouse_press(20, 60, 420, 125) == 0 
-        && mouse_press(20, 155, 420, 220) == 0 
-        && mouse_press(20, 250, 420, 315) == 0 
-        && mouse_press(20, 345, 420, 405) == 0)
+        && mouse_press(200, 80, 440, 145) == 0
+        && mouse_press(200, 160, 440, 225) == 0
+        && mouse_press(200, 240, 440, 305) == 0
+        && mouse_press(200, 320, 440, 385) == 0)
         {
             MouseS = 0;
         }
@@ -59,52 +63,56 @@ int page_choose()
                 return 2;
             }
         }
-        if (MouseX > 20 && MouseX < 420 && MouseY > 60 && MouseY < 125) // 经典求职
+        //home_draw(200, 80, 440, 145, BLACK);// 1
+        if (MouseX > 200 && MouseX < 440 && MouseY > 80 && MouseY < 145) // 经典求职
         {
-            if (mouse_press(20, 60, 420, 125) == 2)
+            if (mouse_press(200, 80, 440, 145) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX, &MouseY, &press);
             }
-            if (mouse_press(20, 60, 420, 125) == 1)
+            if (mouse_press(200, 80, 440, 145) == 1)
             {
                 return 6;
             }
         }
-        if (MouseX > 20 && MouseX < 420 && MouseY > 155 && MouseY < 220) // 零经验求职
+        //home_draw(200, 160, 440, 225, BLACK);// 2
+        if (MouseX > 200 && MouseX < 440 && MouseY > 160 && MouseY < 225) // 零经验求职
         {
-            if (mouse_press(20, 155, 420, 220) == 2)
+            if (mouse_press(200, 160, 440, 225) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX, &MouseY, &press);
             }
-            if (mouse_press(20, 155, 420, 220) == 1)
+            if (mouse_press(200, 160, 440, 225) == 1)
             {
                 return 7;
             }
             
         }
-        if (MouseX > 20 && MouseX < 420 && MouseY > 250 && MouseY < 315) // 学生求职
+        //home_draw(200, 240, 440, 305, BLACK);// 3
+        if (MouseX > 200 && MouseX < 440 && MouseY > 240 && MouseY < 305) // 学生求职
         {
-            if (mouse_press(20, 250, 420, 315) == 2)
+            if (mouse_press(200, 240, 440, 305) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX, &MouseY, &press);
             }
-            if (mouse_press(20, 250, 420, 315) == 1)
+            if (mouse_press(200, 240, 440, 305) == 1)
             {
                 return 8;
             }
             
         }
-        if (MouseX > 20 && MouseX < 420 && MouseY > 345 && MouseY < 405) // 评奖评优
+        //home_draw(200, 320, 440, 385, BLACK);// 4
+        if (MouseX > 200 && MouseX < 440 && MouseY > 320 && MouseY < 385) // 评奖评优
         {
-                if (mouse_press(20, 345, 420, 405) == 2)
+                if (mouse_press(200, 320, 440, 385) == 2)
                 {
                     MouseS = 1;
                     newmouse(&MouseX, &MouseY, &press);
                 }
-                if (mouse_press(20, 345, 420, 405) == 1)
+                if (mouse_press(200, 320, 440, 385) == 1)
                 {
                     return 9;
                 }               

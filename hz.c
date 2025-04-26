@@ -1,22 +1,12 @@
-/*#include <graphics.h>
-#include<conio.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include"hz.h"*/
-
-/*#include"common.h"
-#include"hz.h"*/
-
 #include<graphics.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<bios.h>
 #include<string.h>
 #include<dos.h>
-//#include"imouse.h"
 #include"conio.h"
 #include"hz.h"
+
 void puthz(int x, int y,char *s,int flag,int part,int color)
 {
 	FILE *hzk_p=NULL;                                       //定义汉字库文件指针
@@ -31,14 +21,14 @@ void puthz(int x, int y,char *s,int flag,int part,int color)
 		case 16 :
 				  {
 					 char mat[32];   //16*16的汉字需要32个字节的数组来存储
-					int y0=y;
-					int x0=x;
+					 int y0=y;
+					 int x0=x;
 					 hzk_p = fopen("HZK\\HZ16","rb");            //使用相对路径
 					 if(hzk_p==NULL)
 					 {
-						settextjustify(LEFT_TEXT,TOP_TEXT);          //左部对齐，顶部对齐
-						settextstyle(GOTHIC_FONT,HORIZ_DIR,1);					//黑体笔划输出，水平输出，24*24点阵
-						outtextxy(10,10,"Can't open hzk16 file!Press any key to quit...");
+						 settextjustify(LEFT_TEXT,TOP_TEXT);          //左部对齐，顶部对齐
+						 settextstyle(GOTHIC_FONT,HORIZ_DIR,1);					//黑体笔划输出，水平输出，24*24点阵
+						 outtextxy(10,10,"Can't open hzk16 file!Press any key to quit...");
 						 getch();
 						 exit(1);
 

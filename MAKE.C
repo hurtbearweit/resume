@@ -21,39 +21,42 @@ int page_make()
 {
     
     clrmous(MouseX,MouseY);
-    setfillstyle(1,LIGHTCYAN);
+    setfillstyle(1,WHITE);
     bar(0,0,640,480);
     setfillstyle(1,YELLOW);
     bar(600,0,648,35);//退出框
     log_restore(600,0,648,35);
     puthz(605,10,"退出",16,15,RED);
-    puthz(250, 20, "创建模板", 32, 64, BLACK);
+    puthz(230, 20, "创建模板", 32, 64, BLACK);
 
-    setfillstyle(1,WHITE);
-    bar(20, 60, 420, 125);
+    /*setfillstyle(1,WHITE);
+    bar(20, 60, 420, 125);*/
     home_draw(20,60,420,125,BLACK);
     puthz(25,70,"选择内容",24,32,BLACK);
-    setlinestyle(0,0,1);
+    setlinestyle(0,0,3);
     // line(380,80,400,90);
     // line(400,90,410,80);
     line(400,80,410,90);
     line(410,90,400,100);
      
-    bar(20,165,420,230);
+    //bar(20,165,420,230);
     home_draw(20,165,420,230,BLACK); 
     puthz(25,175,"顺序预览",24,32,BLACK);
-    setlinestyle(0,0,1);
+    setlinestyle(0,0,3);
     line(400,185,410,195);
     line(410,195,400,205);
 
     setfillstyle(1,LIGHTGRAY);
-    bar(220,350,420,400);
-    home_draw(220,350,420,400,BLACK);
-    puthz(280,360,"创建",24,64,BLACK);
+    bar(440,100,600,180);
+    home_draw(440, 100, 600, 180,BLACK);
+    puthz(460,130,"创建",32,64,BLACK);
 
     while(1)
     {
-        if(MouseS != 0&&mouse_press(20,60,420,125) == 0&&mouse_press(20,165,420,230) == 0&&mouse_press(220,350,420,400) == 0)
+        if(MouseS != 0
+            &&mouse_press(20,60,420,125) == 0
+            &&mouse_press(20,165,420,230) == 0
+            &&mouse_press(440, 100, 600, 180) == 0)
         {
             MouseS = 0;
         }
@@ -99,15 +102,16 @@ int page_make()
             }            
         }
 		else home_draw(20,165,420,230,BLACK);
-        if (MouseX>220&&MouseX<420&&MouseY>350&&MouseY<400)//创建
+        //   home_draw(440, 100, 600, 180,BLACK);
+        if (MouseX>440&&MouseX<600&&MouseY>100&&MouseY<180)//创建
         {
-            if (mouse_press(220,350,420,400) == 2)
+            if (mouse_press(440, 100, 600, 180) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX,&MouseY,&press);
-                home_draw(220,350,420,400,RED);
+                home_draw(440, 100, 600, 180,RED);
             }
-            if (mouse_press(220,350,420,400) == 1)
+            if (mouse_press(440, 100, 600, 180) == 1)
             {
                 return 15;
             }
@@ -143,7 +147,10 @@ int make_list(int pchoose[],int turn[])
     setcolor(BLACK);
     home_draw(20,60,420,125,BLACK);
     bar(20,125,420,445);
-    setlinestyle(0,0,1);
+    setlinestyle(0,0,3);
+    line(20, 125, 20, 445);
+    line(420, 125, 420, 445);
+    //向右箭头覆盖成向右箭头
     puthz(20,130,"基本信息",24,32,BLACK);
     rectangle(390,130,410,150);
     line(20,165,420,165);
@@ -167,6 +174,7 @@ int make_list(int pchoose[],int turn[])
     line(20,405,420,405);
     puthz(20,410,"实习经历",24,32,BLACK);
     rectangle(390,410,410,430);
+    line(20, 450, 420, 450);
     
     setfillstyle(1,YELLOW);
     bar(600,0,648,35);//退出框
@@ -251,6 +259,7 @@ int make_list(int pchoose[],int turn[])
                     outtextxy(200, 135, output[0]);
                     i++;
                 }
+                //若未选中，那么就会直接加入pchooose，并且直接排序
                 else if (pchoose[0] == 1)
                 {
                     for(j = 0;j<8;j++)
@@ -263,9 +272,9 @@ int make_list(int pchoose[],int turn[])
                             bar(200, 130+40*j, 240, 160+40*j);
                             itoa(turn[j],output[j],10);
                             outtextxy(200,135+40*j,output[j]);
-                        }
-                        
+                        } 
                     }
+                    //若已经选中过了，删掉的话，就会删掉之前的所有信息，还会把排在他后面的信息往前移一位
                     pchoose[0] = 0;
                     turn[0] = 0;
                     i--;
@@ -562,7 +571,7 @@ int turn_list(int pchoose[],int turn[])
     clrmous(MouseX,MouseY);
     setfillstyle(1,WHITE);
     setcolor(BLACK);
-    setlinestyle(0,0,1);
+    setlinestyle(0,0,3);
     bar(20,230,420,480);
     for ( i = 0; i < 8; i++)
     {
@@ -573,6 +582,8 @@ int turn_list(int pchoose[],int turn[])
                 k++;
                 j++;
                 line(20, 230 + 32 * j, 420, 230 + 32 * j);
+                line(20, 200 + 32 * j, 20, 230 + 32 * j);
+                line(420, 200 + 32 * j, 420, 230 + 32 * j);
                 puthz(22, 230 + 32 * (j - 1), temp[l], 24, 32, BLACK);
             }
         }    
@@ -627,6 +638,7 @@ int my_template(int *x,int pchoose[],int turn[],int *info_page,int *template_pag
         memset(ifin,0,48*sizeof(int));
     }
     *template_page = 5;
+    //template_page就是选择的模板编号，0~3就是经典，小白，毕业生和评优生的模板，4是自定义模板
     
     
     my_template_draw(*x,pchoose,turn,ifin,psave);
@@ -641,6 +653,7 @@ int my_template(int *x,int pchoose[],int turn[],int *info_page,int *template_pag
                 turnlength[k-2] = j;
                 turnnum[k-2] = l + 1; 
             }
+            //统计出选出来的模块的次序以及对应的长度
             else if (turn[l] == 0)
             {
                 psave[l] = 0;
@@ -651,8 +664,12 @@ int my_template(int *x,int pchoose[],int turn[],int *info_page,int *template_pag
     }
     while (1)
     {
-        if (MouseS != 0&&mouse_press(610, 45, 640, 80) == 0&&mouse_press(610, 395, 640, 430) == 0
-        &&mouse_press(0,0,500,turnlength[0]+*x) == 0&&mouse_press(610, 0, 640, 45) == 0&&mouse_press(610, 430, 640, 480) == 0)
+        if (MouseS != 0
+            &&mouse_press(610, 45, 640, 80) == 0
+            &&mouse_press(610, 395, 640, 430) == 0
+            &&mouse_press(0,0,500,turnlength[0]+*x) == 0
+            &&mouse_press(610, 0, 640, 45) == 0
+            &&mouse_press(610, 430, 640, 480) == 0)
         {
             MouseS = 0;
         }

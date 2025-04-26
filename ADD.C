@@ -27,7 +27,7 @@ int page_add(int pos[],int template_page,int *ifadd)
     puthz(170,75,"教育信息",24,32,BLACK);
     home_draw(170,70,310,190,BLACK);
     rectangle(220,115,260,145);
-    puthz(330,75,"工作信息",24,32,BLACK);
+    puthz(330,75,"工作经历",24,32,BLACK);
     home_draw(330,70,470,190,BLACK);
     rectangle(380,115,420,145);
     puthz(490,75,"技能信息",24,32,BLACK);
@@ -42,10 +42,11 @@ int page_add(int pos[],int template_page,int *ifadd)
     puthz(330,215,"实习经历",24,32,BLACK);
     home_draw(330,210,470,330,BLACK);
     rectangle(380,255,420,285);
+    //画出所有的选择模块按钮
     //home_draw(490,210,630,330,BLACK);
     setfillstyle(1,LIGHTGRAY);
     bar(270,385,370,435);
-    puthz(270,390,"返回",24,64,BLACK);
+    puthz(270,400,"返回",24,64,BLACK);
     puthz(0,450,"该功能只能按预设顺序添加更改请自建模板",16,24,BLACK);
 
     for ( i = 0; i < 7; i++)
@@ -62,6 +63,7 @@ int page_add(int pos[],int template_page,int *ifadd)
         }
         
     } 
+    //将已经被选择的按钮变成红色
     while(1)
     {
         newmouse(&MouseX,&MouseY,&press);
@@ -71,6 +73,7 @@ int page_add(int pos[],int template_page,int *ifadd)
         &&mouse_press(20,70,150,190) == 0
         &&mouse_press(170,70,310,190) == 0
         &&mouse_press(330,70,470,190) == 0)
+            //意即不在那四个按钮区域内
         {
             MouseS = 0;
         }
@@ -114,7 +117,7 @@ int page_add(int pos[],int template_page,int *ifadd)
             }
         }
 		else home_draw(170,70,310,190,BLACK);
-        if (MouseX > 330 && MouseX < 470 && MouseY > 70 && MouseY < 190) //工作信息 home_draw(330,70,470,190,BLACK);
+        if (MouseX > 330 && MouseX < 470 && MouseY > 70 && MouseY < 190) //工作经历 home_draw(330,70,470,190,BLACK);
         {
             if (mouse_press(330,70,470,190) == 2)
             {
@@ -195,7 +198,7 @@ int page_add(int pos[],int template_page,int *ifadd)
             }
         }
 		else home_draw(170,210,310,330,BLACK);
-        if (MouseX > 330 && MouseX < 470 && MouseY > 210 && MouseY < 330) //荣誉奖项 home_draw(330,210,470,330,BLACK);
+        if (MouseX > 330 && MouseX < 470 && MouseY > 210 && MouseY < 330) //实习经历 home_draw(330,210,470,330,BLACK);
         {
             if (mouse_press(330,210,470,330) == 2)
             {
@@ -207,9 +210,6 @@ int page_add(int pos[],int template_page,int *ifadd)
             {
                 if (pos[6] == 1)
                 {
-                    
-                    
-                    
                     clrmous(MouseX,MouseY);
                     setfillstyle(1,RED);
                     bar(380,255,420,285);

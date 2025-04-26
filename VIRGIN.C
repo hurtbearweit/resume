@@ -20,18 +20,16 @@ RETURN:3,
 ***********************************************/
 int page_virgin(int *x,int* pinfo_page, int psave[], int ifin[][6], int pos[], int* template_page,int *ifadd,int *count,int turn[])
 {
-	//char a[10] = {'\0'};
-	//1;//1
 	unsigned s;
 	void* p;
-	//int x = 0;
+
 	int i[5] = { 0 };
     int addlength[2] = {200,126};
 	int add[2] = {0,0};
-	int i1 = 65, i2 = 151, i3 = 126, i4 = 108;
-	i[0] = pos[0] * i1;
-	i[1] = pos[0] * i1 + pos[1] * i2;
-	i[2] = i[1] + pos[5] * i[3];
+	int i1 = 65, i2 = 151, i3 = 150, i4 = 108;
+	i[0] = pos[0] * i1;//求职意向的长度
+	i[1] = pos[0] * i1 + pos[1] * i2;//教育信息
+	i[2] = i[1] + pos[5] * i3;//
 	i[3] = pos[0] * i1 + pos[1] * i2 + pos[5] * i3 + pos[3] * i4;
     if (*ifadd != 2)
 	{
@@ -69,7 +67,7 @@ int page_virgin(int *x,int* pinfo_page, int psave[], int ifin[][6], int pos[], i
 		}
 		newmouse(&MouseX, &MouseY, &press);
 		delay(40);
-		if (MouseX>580&&MouseX<600&&MouseY>10+*x&&MouseY<30+*x)
+		if (MouseX>580&&MouseX<600&&MouseY>10+*x&&MouseY<30+*x)    //添加模块
 		{
 			if (mouse_press(580,10+*x,600,30+*x) == 2)
 			{

@@ -16,49 +16,23 @@ int page_home(char usernum,char *count)
 {
     cleardevice();
     clrmous(MouseX,MouseY);
-    setfillstyle(1,LIGHTCYAN);
+    setfillstyle(1,WHITE);
     bar(0,0,648,480);
     setfillstyle(1,YELLOW);
     bar(600,0,648,35);//退出框
     log_restore(600,0,648,35);
     puthz(605,10,"退出",16,15,RED);
-	/*setfillstyle(1,WHITE);
-    bar(99,430,549,480);
-    setcolor(BLUE);
-    // line(249,430,249,480);//选择框（99，430，249，480），制作框（249，430，399，480），个人框（399，430，549，480）
-    //line(399,430,399,480);
-    puthz(114,445,"选择模板",16,32,BLACK);
-    puthz(268,445,"创作模板",16,32,BLACK);
-    puthz(434,445,"我的",16,64,BLACK);*/
-    //rectangle(75,100,205,350);
 	puthz(213,30,"简历助手",48,64,RED);
-    home_draw(75,100,205,350,BLUE);
-    puthz(80,300,"选择模板",24,32,RED);
-    setcolor(BLUE);
-	rectangle(100,120,180,240);
-	settextstyle(TRIPLEX_FONT, HORIZ_DIR, 1);
-	settextjustify(LEFT_TEXT, TOP_TEXT);
-	outtextxy(105,130,"RESUME");
-	line(110,160,150,160);
-	line(110,170,140,170);
-	line(110,180,150,180);
-	line(110,190,155,190);
-	line(110,200,140,200);
-	//rectangle(255,100,385,350);
-	home_draw(255,100,385,350,BLUE);
-	puthz(260,300,"创建模板",24,32,RED);
-	home_draw(280,120,360,240,BLUE);
-	setlinestyle(0,0,3);
-	line(320,160,320,200);
-	line(300,180,340,180);
-	//rectangle(435,100,575,350);
-	home_draw(435,100,575,350,BLUE);
-	circle(505,150,30);
-	line(530,170,550,240);
-	line(480,170,460,240);
-	line(460,240,550,240);
-	puthz(440,300,"个人中心",24,32,RED);
-    //printf("%d",usernum);
+
+    home_draw(200,130,440,180,BLACK);
+    puthz(260,145,"选择模板",24,32,RED);
+
+    home_draw(200, 200, 440, 250, BLACK);
+    puthz(260, 215, "创建模板", 24, 32, RED);
+
+    home_draw(200, 270, 440, 320, BLACK);
+    puthz(260, 285, "个人中心", 24, 32, RED);
+
     while (1)
     {
          if (MouseS != 0&&mouse_press(75,100,205,350) == 0&&mouse_press(255,100,385,350) == 0&&mouse_press(435,100,575,350) == 0&&mouse_press(600,0,648,35) == 0)
@@ -79,46 +53,49 @@ int page_home(char usernum,char *count)
                 return 0;
             } 
         }
-        else log_restore(600,0,648,35);
-        if (MouseX>75&&MouseX<205&&MouseY>100&&MouseY<350)//选择框
+        else log_restore(600,0,648,35); 
+        // home_draw(200,130,440,180,BLACK);
+        if (MouseX>200&&MouseX<440&&MouseY>130&&MouseY<180)//选择框
         {
-            if (mouse_press(75,100,205,350) == 2)
+            if (mouse_press(200, 130, 440, 180) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX,&MouseY,&press);
-                home_draw(75,100,205,350,LIGHTRED);
+                home_draw(200, 130, 440, 180,LIGHTRED);
             }
-            if (mouse_press(75,100,205,350) == 1)
+            if (mouse_press(200, 130, 440, 180) == 1)
             {
                 clrmous(MouseX,MouseY);
                 return 3;
             }
         }
-        else home_draw(75,100,205,350,BLUE);
-        if (MouseX>255&&MouseX<385&&MouseY>100&&MouseY<350)//制作框
+        else home_draw(200, 130, 440, 180,BLACK);
+        //home_draw(200, 200, 440, 250, BLACK);
+        if (MouseX>200&&MouseX<440&&MouseY>200&&MouseY<250)//制作框
         {
-            if (mouse_press(255,100,385,350) == 2)
+            if (mouse_press(200, 200, 440, 250) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX,&MouseY,&press);
-                home_draw(255,100,385,350,LIGHTRED);
+                home_draw(200, 200, 440, 250,LIGHTRED);
             }
-            if (mouse_press(255,100,385,350) == 1)
+            if (mouse_press(200, 200, 440, 250) == 1)
             {
                 clrmous(MouseX,MouseY);
                 return 4;
             }
         }
-        else home_draw(255,100,385,350,BLUE);
-        if (MouseX>435&&MouseX<575&&MouseY>100&&MouseY<350)//个人框
+        else home_draw(200, 200, 440, 250,BLACK);
+        //home_draw(200, 270, 440, 320, BLACK);
+        if (MouseX>200&&MouseX<440&&MouseY>270&&MouseY<320)//个人框
         {
-            if (mouse_press(435,100,575,350) == 2)
+            if (mouse_press(200, 270, 440, 320) == 2)
             {
                 MouseS = 1;
                 newmouse(&MouseX,&MouseY,&press);
-                home_draw(435,100,575,350,LIGHTRED);
+                home_draw(200, 270, 440, 320,LIGHTRED);
             }
-            if (mouse_press(435,100,575,350) == 1)
+            if (mouse_press(200, 270, 440, 320) == 1)
             {
                 if (usernum != 0)
                 {
@@ -129,12 +106,12 @@ int page_home(char usernum,char *count)
                 {                 
                     puthz(230,370,"请先登录！",32,32,BLACK);
                     delay(500);					
-                    setfillstyle(1,LIGHTCYAN);
+                    setfillstyle(1,WHITE);
                     bar(200,360,400,410);
                 }	
             }
         }
-        else home_draw(435,100,575,350,BLUE);
+        else home_draw(200, 270, 440, 320,BLACK);
     }
     
 }

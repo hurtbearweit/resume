@@ -23,7 +23,7 @@ int page_log(char *usernum)
     *usernum = 0;//重置iflog
 	clrmous(MouseX,MouseY);
     cleardevice();
-	setfillstyle(SOLID_FILL,LIGHTCYAN);
+	setfillstyle(SOLID_FILL,WHITE);
 	bar(0,0,648,480);
 	setfillstyle(SOLID_FILL,WHITE);
     bar(100,160,548,210);
@@ -31,7 +31,7 @@ int page_log(char *usernum)
     puthz(175,60,"欢迎使用",48,64,LIGHTRED);
 	puthz(30,160,"用户",32,30,BLACK);
     puthz(30,280,"密码",32,30,BLACK);
-    setfillstyle(SOLID_FILL,YELLOW);
+    setfillstyle(SOLID_FILL,WHITE);
 	bar(100,380,230,440);   //注册框
 	bar(250,380,400,440);   //用户登录框
 	bar(420,380,548,440);   //游客登录框
@@ -40,7 +40,7 @@ int page_log(char *usernum)
 	puthz(260,390,"用户登录",32,30,BLUE);
 	puthz(420,390,"游客登录",32,30,BLUE);
 	puthz(560,10,"退出",32,30,RED);
-    setcolor(LIGHTBLUE);
+    setcolor(BLACK);
 	setlinestyle(0,0,3);
 	rectangle(100-2,380-2,230+2,440+2);
 	rectangle(250-2,380-2,400+2,440+2);
@@ -171,9 +171,9 @@ DESCRIPTION：restore the border color
 INPUT:x1,y1,x2,y2
 RETURN:void
 ***********************************************/
-void log_restore(int x1,int y1,int x2,int y2)
+void log_restore(int x1,int y1,int x2,int y2) 
 {
-    setcolor(LIGHTBLUE);
+    setcolor(BLACK);
     setlinestyle(0,0,3);
     rectangle(x1-2,y1-2,x2+2,y2+2);
     setlinestyle(0,0,1);
@@ -196,7 +196,7 @@ void log_inputaccount(char *name,int x,int y,int limit,int color,int size)
 	if (size == 1)
     {
         settextstyle(TRIPLEX_FONT, HORIZ_DIR, 2);
-    }
+    }//settextstyle(TRIPLEX_FONT, VERT_DIR, 2);
     else if (size == 9)
     {
         settextstyle( 2,0,3);
